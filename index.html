@@ -4,393 +4,220 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#2457d6">
-<title>تجربة الذكاء الاصطناعي</title>
+<title>الذكاء الاصطناعي في عملنا</title>
 <style>
-:root{--bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#667085;--line:#e4e7ec;--brand:#2457d6;--soft:#eef4ff;--ok:#0f8a5f;--danger:#b42318;--shadow:0 12px 28px rgba(16,24,40,.07)}
+:root{
+  --bg:#f3f6fb;--card:#fff;--text:#162033;--muted:#667085;--line:#e4e9f2;
+  --brand:#2457d6;--brand-dark:#173f9d;--brand-soft:#eef4ff;--ok:#0b8b61;
+  --warn:#9a6500;--danger:#b42318;--shadow:0 14px 36px rgba(16,24,40,.08)
+}
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Tahoma,Arial,sans-serif;line-height:1.7}
 body{min-height:100vh}
-button,select,input{font:inherit}
-button{cursor:pointer}
-.wrap{width:min(760px,100%);margin:0 auto}
-.hide{display:none!important}
-.top{position:sticky;top:0;z-index:20;background:rgba(245,247,251,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:10px 14px}
-.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.brand{font-weight:900;font-size:18px}
-.small{font-size:12px;color:var(--muted)}
-.gear,.back{width:42px;height:42px;border:1px solid var(--line);background:#fff;border-radius:13px;font-size:20px}
-.hero{margin:15px 14px 8px;padding:22px 20px;border-radius:22px;background:linear-gradient(135deg,#173f9d,#2f6be8);color:#fff;box-shadow:var(--shadow)}
-.hero h1{margin:0 0 6px;font-size:28px}
-.hero p{margin:0;font-size:14px}
-.sec{padding:7px 14px}
-.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow)}
-.wait{text-align:center;padding:34px 10px}
-.wait .ico{font-size:42px}
-.tag{display:inline-block;background:var(--soft);color:var(--brand);padding:5px 9px;border-radius:999px;font-size:12px;font-weight:800;margin-bottom:8px}
-.qtitle{font-weight:900;color:var(--brand);font-size:13px;margin-bottom:6px}
-.q{font-size:19px;font-weight:800;white-space:pre-wrap}
-.goal{margin-top:10px;padding:10px;border-radius:11px;background:#f2fbf7;color:#086847;font-size:13px}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
-.btn{border:0;border-radius:12px;padding:11px 14px;font-weight:800}
-.primary{background:var(--brand);color:#fff}
-.secondary{background:#f2f4f7;color:#344054}
-.outline{background:#fff;border:1px solid var(--line);color:#344054}
-.roles{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:12px}
-.role{border:1px solid var(--line);background:#fff;border-radius:14px;padding:13px 8px;font-weight:800}
-.role span{display:block;font-size:27px}
-.role.on{border-color:var(--brand);background:var(--soft);color:var(--brand)}
-.chosen{margin-top:10px;padding:10px;border:1px solid var(--line);border-radius:11px;background:#f8fafc}
-.modal{position:fixed;inset:0;background:#0008;z-index:100;display:grid;place-items:center;padding:16px}
-.box{width:min(410px,100%);background:#fff;border-radius:18px;padding:17px}
-.box input,select{width:100%;padding:11px;border:1px solid #cfd6e3;border-radius:11px;background:#fff}
-.admin{position:fixed;inset:0;z-index:80;background:var(--bg);overflow:auto}
-.adminTop{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line);padding:10px 14px}
-.adminMain{width:min(760px,100%);margin:0 auto;padding-bottom:30px}
-.live{padding:10px;border:1px solid var(--line);border-radius:11px;background:#f8fafc}
-.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#bbb;margin-left:6px}
-.dot.on{background:#14a06e}
-.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-.tab{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px;font-weight:800}
-.tab.on{background:var(--soft);color:var(--brand);border-color:#cbd8ff}
-label{display:block;font-size:13px;font-weight:800;margin:11px 0 5px}
-.preview{margin-top:10px;border:1px dashed #b6c2d5;border-radius:11px;padding:11px;white-space:pre-wrap}
-.phone{margin-top:12px;border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff}
-.copyok{font-size:12px;color:var(--ok);align-self:center}
-.adminSpacer{height:8px}
-@media(min-width:650px){.roles{grid-template-columns:repeat(3,1fr)}}
+button,select,input{font:inherit}button{cursor:pointer}.hide{display:none!important}
+.wrap{width:min(780px,100%);margin:0 auto}
+.top{position:sticky;top:0;z-index:20;background:rgba(243,246,251,.94);backdrop-filter:blur(14px);border-bottom:1px solid rgba(228,233,242,.9);padding:10px 14px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}.brand{font-weight:900;font-size:18px}.small{font-size:12px;color:var(--muted)}
+.gear,.back{width:44px;height:44px;border:1px solid var(--line);background:#fff;border-radius:14px;font-size:20px;box-shadow:0 5px 16px rgba(16,24,40,.06)}
+.conn{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}.connDot{width:8px;height:8px;border-radius:50%;background:#c9d0db}.connDot.on{background:var(--ok);box-shadow:0 0 0 4px rgba(11,139,97,.09)}
+.hero{margin:15px 14px 10px;padding:24px 20px;border-radius:24px;background:linear-gradient(135deg,#153d98,#2f6ce9 62%,#4d82ee);color:#fff;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;background:#ffffff14}.hero:before{width:170px;height:170px;left:-70px;top:-70px}.hero:after{width:110px;height:110px;left:65px;bottom:-70px}.hero h1{margin:0 0 6px;font-size:29px;line-height:1.3}.hero p{margin:0;font-size:14px;opacity:.95;max-width:560px}.heroBadge{display:inline-flex;align-items:center;gap:7px;margin-top:14px;padding:6px 10px;border-radius:999px;background:#ffffff20;font-size:12px;font-weight:800}
+.sec{padding:7px 14px}.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:17px;box-shadow:var(--shadow)}
+.progress{display:grid;grid-template-columns:1fr 1fr;gap:8px}.pstep{border:1px solid var(--line);border-radius:14px;padding:10px 12px;background:#fff;display:flex;align-items:center;gap:9px;color:var(--muted);font-weight:800}.pnum{width:29px;height:29px;border-radius:50%;display:grid;place-items:center;background:#f2f4f7;font-size:12px}.pstep.on{border-color:#c9d8ff;background:var(--brand-soft);color:var(--brand)}.pstep.on .pnum{background:var(--brand);color:#fff}.pstep.done{border-color:#d7eee5;background:#f5fbf8;color:#0b7754}.pstep.done .pnum{background:#0b8b61;color:#fff}
+.wait{text-align:center;padding:38px 12px}.waitIco{width:78px;height:78px;border-radius:24px;background:var(--brand-soft);display:grid;place-items:center;font-size:38px;margin:0 auto 12px}.wait h2{margin:0 0 4px;font-size:23px}.wait p{margin:0;color:var(--muted);font-size:14px}
+.tag{display:inline-flex;align-items:center;gap:6px;background:var(--brand-soft);color:var(--brand);padding:6px 10px;border-radius:999px;font-size:12px;font-weight:900;margin-bottom:10px}.count{float:left;color:var(--muted);font-size:12px;font-weight:800;margin-top:6px}
+.qhead{margin-bottom:10px}.qtitle{font-weight:900;font-size:22px;line-height:1.35}.qsub{font-size:13px;color:var(--muted);margin-top:2px}
+.prompt{position:relative;border:1px solid #dbe4fb;background:linear-gradient(180deg,#fbfdff,#f7faff);border-radius:17px;padding:18px 17px 16px;margin-top:12px}.prompt:before{content:"❝";position:absolute;left:13px;top:8px;font-size:27px;color:#bdd0ff}.q{font-size:18px;font-weight:800;white-space:pre-wrap;padding-left:24px}
+.goal{margin-top:11px;padding:11px 12px;border-radius:12px;background:#f4fbf8;border:1px solid #d9f0e6;color:#0b6d4d;font-size:13px}.goal b{color:#075f43}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.btn{border:0;border-radius:13px;padding:11px 15px;font-weight:900;transition:.15s}.btn:active{transform:translateY(1px)}.primary{background:var(--brand);color:#fff}.primary:hover{background:#1f4fc5}.secondary{background:#f2f4f7;color:#344054}.outline{background:#fff;border:1px solid var(--line);color:#344054}.wide{flex:1;min-width:180px}.copyok{font-size:12px;color:var(--ok);align-self:center;font-weight:800}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:13px}.howItem{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:9px;text-align:center;font-size:12px;color:#475467}.howItem span{display:block;font-size:19px;margin-bottom:2px}
+.roles{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}.role{border:1px solid var(--line);background:#fff;border-radius:16px;padding:15px 10px;text-align:right;font-weight:900;color:var(--text);min-height:104px;display:flex;flex-direction:column;justify-content:space-between}.role:hover{border-color:#c8d7fb}.role.on{border-color:var(--brand);background:var(--brand-soft);color:var(--brand)}.roleTop{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}.roleIcon{font-size:30px}.roleName{font-size:16px}.roleDesc{font-size:11px;color:var(--muted);font-weight:600;margin-top:5px}.role.on .roleDesc{color:#4e68a8}.chosen{margin-top:11px;padding:11px 12px;border:1px solid #d8e4ff;border-radius:12px;background:#f8fbff;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tip{margin-top:12px;padding:10px 12px;border-radius:12px;background:#fff8e9;border:1px solid #f2dfb5;color:#795400;font-size:12px}
+.privacy{display:flex;gap:9px;align-items:flex-start;margin:10px 14px 18px;padding:12px 13px;background:#fff;border:1px solid var(--line);border-radius:15px;color:#475467;font-size:12px}.privacy span{font-size:20px;line-height:1}
+.modal{position:fixed;inset:0;background:#0f172a91;z-index:40;display:grid;place-items:center;padding:16px}.box{width:min(420px,100%);background:#fff;border-radius:20px;padding:18px;box-shadow:0 24px 70px rgba(0,0,0,.22)}.box h2{margin:0 0 8px}.box input,select{width:100%;padding:12px;border:1px solid #cfd8e6;border-radius:12px;background:#fff}.box input:focus,select:focus{outline:2px solid #d6e3ff;border-color:#9eb9ff}
+.admin{min-height:100vh}.adminTop{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line);padding:10px 14px}.adminTitle{font-weight:900;font-size:19px}.adminHero{margin:12px 14px 5px;padding:16px;border-radius:18px;background:linear-gradient(135deg,#172b58,#2457d6);color:#fff}.adminHero .small{color:#dfe8ff}.live{margin-top:11px;padding:11px 12px;border:1px solid #ffffff2b;border-radius:12px;background:#ffffff12;display:flex;gap:8px;align-items:center}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#cbd5e1}.dot.on{background:#47dda8;box-shadow:0 0 0 5px #47dda822}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px}.tab{border:1px solid var(--line);background:#fff;border-radius:13px;padding:11px;font-weight:900}.tab.on{background:var(--brand-soft);color:var(--brand);border-color:#c9d8ff}
+label{display:block;font-size:13px;font-weight:900;margin:12px 0 5px}.adminStep{display:flex;align-items:flex-start;gap:11px;padding:12px 0;border-bottom:1px solid var(--line)}.adminStep:last-child{border-bottom:0}.stepNo{width:34px;height:34px;border-radius:11px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-weight:900;flex:0 0 auto}.stepBody{flex:1}.stepBody h3{margin:0;font-size:16px}.stepBody p{margin:2px 0 8px;color:var(--muted);font-size:12px}
+.preview{margin-top:10px;border:1px dashed #b9c5d8;border-radius:13px;padding:12px;white-space:pre-wrap;background:#fbfcfe;font-size:13px}.navBtns{display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:7px;margin-top:10px}
+.phoneFrame{margin-top:12px;background:#121826;border-radius:24px;padding:8px;box-shadow:0 15px 35px rgba(16,24,40,.12)}.phoneInner{background:#fff;border-radius:18px;overflow:hidden}.phoneTop{height:24px;background:#f3f6fb;border-bottom:1px solid var(--line);display:flex;justify-content:center;align-items:center}.phoneNotch{width:72px;height:6px;border-radius:999px;background:#cfd6e1}.phone{padding:14px;min-height:100px}.phone .miniTitle{font-weight:900;font-size:14px;margin-bottom:4px}.phone .miniText{font-size:12px;color:#475467}.phone .miniRoles{display:grid;grid-template-columns:repeat(2,1fr);gap:5px;margin-top:8px}.phone .miniRole{border:1px solid var(--line);border-radius:9px;padding:6px;text-align:center;font-size:11px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:70;background:#101828;color:#fff;padding:10px 14px;border-radius:999px;font-size:12px;font-weight:800;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+@media(min-width:650px){.roles{grid-template-columns:repeat(3,1fr)}.hero h1{font-size:34px}}
+@media(max-width:460px){.how{grid-template-columns:1fr}.navBtns{grid-template-columns:1fr}.q{font-size:17px}.hero h1{font-size:27px}}
 </style>
 </head>
 <body>
 
-<div id="participant">
-  <div class="wrap">
-    <header class="top">
-      <div class="row">
-        <div>
-          <div class="brand">تجربة الذكاء الاصطناعي</div>
-          <div id="status" class="small">بانتظار الخطوة التالية</div>
-        </div>
-        <button class="gear" onclick="openLogin()">⚙️</button>
-      </div>
-    </header>
+<div id="participant" class="wrap">
+<header class="top"><div class="row">
+  <div><div class="brand">الذكاء الاصطناعي في عملنا</div><div class="conn"><span id="connDot" class="connDot"></span><span id="status">بانتظار الخطوة التالية</span></div></div>
+  <button class="gear" onclick="openLogin()" aria-label="الدخول للإدارة">⚙️</button>
+</div></header>
 
-    <section class="hero">
-      <h1>جرّب بنفسك</h1>
-      <p>سيظهر في كل مرة سؤال واحد فقط. انسخه إلى ChatGPT، اقرأ النتيجة، ثم ناقشها مع المجموعة.</p>
-    </section>
+<section class="hero">
+  <h1>تجربة عملية، خطوة بخطوة</h1>
+  <p>لا نريد شرحًا نظريًا طويلًا. سنجرب أسئلة حقيقية ونرى كيف يمكن للذكاء الاصطناعي أن يساعدنا في العمل.</p>
+  <div class="heroBadge">✨ انسخ السؤال • جرّبه • ناقش النتيجة</div>
+</section>
 
-    <section class="sec">
-      <div class="card">
-        <div id="v-wait" class="wait"><div class="ico">⏳</div><h2>بانتظار الخطوة التالية</h2><div class="small">سيظهر المحتوى هنا عندما يتم فتحه.</div></div>
+<section class="sec"><div class="card"><div class="progress">
+  <div id="progGeneral" class="pstep on"><span class="pnum">1</span><span>عام</span></div>
+  <div id="progWork" class="pstep"><span class="pnum">2</span><span>مجال العمل</span></div>
+</div></div></section>
 
-        <div id="v-general" class="hide">
-          <span class="tag">عام</span>
-          <div class="qtitle" id="gt"></div>
-          <div class="q" id="gq"></div>
-          <div class="goal" id="gg"></div>
-          <div class="actions"><button class="btn primary" onclick="copyQuestion()">نسخ السؤال</button><span id="copy1" class="copyok"></span></div>
-        </div>
+<section class="sec"><div class="card">
+  <div id="v-wait" class="wait"><div class="waitIco">⏳</div><h2>الجلسة ستبدأ بعد لحظات</h2><p>اترك الصفحة مفتوحة، وسيظهر المحتوى تلقائيًا.</p></div>
 
-        <div id="v-roles" class="hide">
-          <span class="tag">مجال العمل</span>
-          <h2>اختر المجال الأقرب لعملك</h2>
-          <div class="small">بعد الاختيار، انتظر حتى يظهر المثال التالي.</div>
-          <div id="roles" class="roles"></div>
-          <div id="chosen" class="chosen hide"></div>
-        </div>
-
-        <div id="v-special" class="hide">
-          <span class="tag">مجال العمل</span>
-          <div id="need" class="wait hide"><div class="ico">👤</div><h2>اختر مجال عملك أولًا</h2></div>
-          <div id="sbox" class="hide">
-            <div class="qtitle" id="st"></div>
-            <div class="q" id="sq"></div>
-            <div class="goal" id="sg"></div>
-            <div class="actions"><button class="btn primary" onclick="copyQuestion()">نسخ السؤال</button><span id="copy2" class="copyok"></span></div>
-          </div>
-        </div>
-      </div>
-    </section>
+  <div id="v-general" class="hide">
+    <span class="tag">🌐 الجزء العام</span><span id="gcount" class="count"></span>
+    <div class="qhead"><div id="gt" class="qtitle"></div><div class="qsub">نفس السؤال يظهر لجميع الحضور.</div></div>
+    <div class="prompt"><div id="gq" class="q"></div></div>
+    <div id="gg" class="goal"></div>
+    <div class="actions"><button class="btn primary wide" onclick="copyQuestion()">📋 نسخ السؤال</button><button class="btn outline" onclick="openAI()">فتح ChatGPT ↗</button><span id="copy1" class="copyok"></span></div>
+    <div class="how"><div class="howItem"><span>①</span>انسخ السؤال</div><div class="howItem"><span>②</span>الصقه في ChatGPT</div><div class="howItem"><span>③</span>اقرأ النتيجة وناقشها</div></div>
   </div>
+
+  <div id="v-roles" class="hide">
+    <span class="tag">🧩 مجال العمل</span>
+    <div class="qhead"><div class="qtitle">اختر المجال الأقرب لعملك</div><div class="qsub">لا يوجد اختيار صحيح أو خاطئ؛ اختر الأقرب لطبيعة عملك اليومية.</div></div>
+    <div id="roles" class="roles"></div>
+    <div id="chosen" class="chosen hide"></div>
+    <div class="tip">بعد اختيار المجال، اترك الصفحة مفتوحة. سيظهر لك المثال الخاص بمجالك عندما يبدأ الجزء التالي.</div>
+  </div>
+
+  <div id="v-special" class="hide">
+    <span class="tag">🎯 مثال حسب التخصص</span><span id="scount" class="count"></span>
+    <div id="need" class="wait hide"><div class="waitIco">👤</div><h2>اختر مجال عملك أولًا</h2><p>ارجع إلى اختيار المجال ثم انتظر المثال.</p></div>
+    <div id="sbox" class="hide">
+      <div class="qhead"><div id="st" class="qtitle"></div><div id="ssub" class="qsub"></div></div>
+      <div class="prompt"><div id="sq" class="q"></div></div>
+      <div id="sg" class="goal"></div>
+      <div class="actions"><button class="btn primary wide" onclick="copyQuestion()">📋 نسخ السؤال</button><button class="btn outline" onclick="openAI()">فتح ChatGPT ↗</button><span id="copy2" class="copyok"></span></div>
+      <div class="how"><div class="howItem"><span>①</span>انسخ</div><div class="howItem"><span>②</span>جرّب</div><div class="howItem"><span>③</span>هل النتيجة مفيدة لعملك؟</div></div>
+    </div>
+  </div>
+</div></section>
+
+<div class="privacy"><span>🔒</span><div><b>تذكير بالخصوصية:</b> لا تضع أسماء حقيقية أو أرقام وطنية أو هواتف أو أي بيانات حساسة للمستفيدين داخل أدوات الذكاء الاصطناعي العامة.</div></div>
 </div>
 
 <div id="admin" class="admin hide">
-  <header class="adminTop">
-    <div class="wrap row">
-      <div>
-        <div class="brand">لوحة إدارة الجلسة</div>
-        <div class="small">ابقَ هنا وتحكم بما يظهر للحضور</div>
-      </div>
-      <button class="back" onclick="leaveAdmin()">↩</button>
-    </div>
-  </header>
+<header class="adminTop"><div class="wrap row"><div><div class="adminTitle">لوحة إدارة الجلسة</div><div class="small">ابقَ هنا طوال الجلسة وتحكم بما يظهر للحضور</div></div><button class="back" onclick="leaveAdmin()" title="معاينة واجهة الحضور">↩</button></div></header>
+<main class="wrap">
+  <section class="adminHero"><div class="small">حالة العرض الحالية</div><div class="live"><span id="dot" class="dot"></span><b id="live">لا يوجد شيء ظاهر الآن</b></div></section>
 
-  <main class="adminMain">
-    <div class="adminSpacer"></div>
+  <section class="sec"><div class="card"><div class="tabs"><button id="tabg" class="tab on" onclick="adminMode('g')">① عام</button><button id="tabw" class="tab" onclick="adminMode('w')">② مجال العمل</button></div></div></section>
 
-    <section class="sec">
-      <div class="card">
-        <div class="live"><span id="dot" class="dot"></span><b id="live">لا يوجد شيء ظاهر الآن</b></div>
-        <div class="tabs">
-          <button id="tabg" class="tab on" onclick="adminMode('g')">عام</button>
-          <button id="tabw" class="tab" onclick="adminMode('w')">مجال العمل</button>
-        </div>
-      </div>
-    </section>
+  <section id="ag" class="sec"><div class="card">
+    <div class="qhead"><div class="qtitle">الجزء العام</div><div class="qsub">نفس السؤال سيظهر لجميع الموظفين.</div></div>
+    <label>السؤال الحالي</label><select id="gsel" onchange="previewG()"></select>
+    <div id="gprev" class="preview"></div>
+    <div class="navBtns"><button class="btn outline" onclick="prevGeneral()">السابق</button><button class="btn outline" onclick="nextGeneral()">التالي</button><button class="btn primary" onclick="showGeneral()">عرض هذا السؤال</button></div>
+    <div class="actions"><button class="btn secondary" onclick="hideAll()">إخفاء المحتوى عن الحضور</button></div>
+  </div></section>
 
-    <section id="ag" class="sec">
-      <div class="card">
-        <h2>عام</h2>
-        <div class="small">نفس السؤال يظهر للجميع.</div>
-        <label>السؤال</label>
-        <select id="gsel" onchange="previewG()"></select>
-        <div id="gprev" class="preview"></div>
-        <div class="actions">
-          <button class="btn primary" onclick="showGeneral()">عرض السؤال</button>
-          <button class="btn secondary" onclick="hideAll()">إخفاء المحتوى</button>
-        </div>
-      </div>
-    </section>
+  <section id="aw" class="sec hide"><div class="card">
+    <div class="qhead"><div class="qtitle">مجال العمل</div><div class="qsub">هنا تنتقل من المثال العام إلى أمثلة تناسب كل موظف.</div></div>
+    <div class="adminStep"><div class="stepNo">1</div><div class="stepBody"><h3>دع الجميع يختارون مجالهم</h3><p>ستظهر جميع المجالات على هواتفهم، وكل موظف يختار ما يناسبه.</p><button class="btn primary" onclick="showRoles()">إظهار مجالات العمل</button></div></div>
+    <div class="adminStep"><div class="stepNo">2</div><div class="stepBody"><h3>اعرض المثال المطلوب</h3><p>كل شخص يرى نفس رقم المثال، لكن بنص مختلف يناسب المجال الذي اختاره.</p><select id="ssel" onchange="previewSpecialAdmin()"><option value="0">المثال الأول</option><option value="1">المثال الثاني</option><option value="2">المثال الثالث</option></select><div id="sprev" class="preview"></div><div class="actions"><button class="btn outline" onclick="prevSpecial()">السابق</button><button class="btn outline" onclick="nextSpecial()">التالي</button><button class="btn primary" onclick="showSpecial()">عرض المثال الآن</button></div></div></div>
+    <div class="actions"><button class="btn secondary" onclick="hideAll()">إخفاء المحتوى عن الحضور</button></div>
+  </div></section>
 
-    <section id="aw" class="sec hide">
-      <div class="card">
-        <h2>مجال العمل</h2>
-        <div class="small">أولًا اعرض المجالات، وبعد أن يختار الجميع مجالهم اعرض رقم المثال.</div>
-        <div class="actions">
-          <button class="btn primary" onclick="showRoles()">إظهار مجالات العمل</button>
-          <button class="btn secondary" onclick="hideAll()">إخفاء المحتوى</button>
-        </div>
-        <label>المثال</label>
-        <select id="ssel">
-          <option value="0">المثال الأول</option>
-          <option value="1">المثال الثاني</option>
-          <option value="2">المثال الثالث</option>
-        </select>
-        <div class="actions"><button class="btn primary" onclick="showSpecial()">عرض المثال الآن</button></div>
-      </div>
-    </section>
-
-    <section class="sec">
-      <div class="card">
-        <h2>معاينة ما يظهر للحضور</h2>
-        <div id="aprev" class="phone"></div>
-      </div>
-    </section>
-  </main>
+  <section class="sec"><div class="card"><div class="qhead"><div class="qtitle">معاينة شاشة الحضور</div><div class="qsub">هذه معاينة سريعة لما يظهر عند الموظفين الآن.</div></div><div class="phoneFrame"><div class="phoneInner"><div class="phoneTop"><div class="phoneNotch"></div></div><div id="aprev" class="phone"></div></div></div></div></section>
+</main>
 </div>
 
-<div id="login" class="modal hide">
-  <div class="box">
-    <h2>الدخول</h2>
-    <input id="pin" type="password" inputmode="numeric" placeholder="الرمز">
-    <div class="actions">
-      <button class="btn primary" onclick="doLogin()">دخول</button>
-      <button class="btn secondary" onclick="closeLogin()">إلغاء</button>
-    </div>
-    <div id="err" class="small" style="color:var(--danger);margin-top:7px"></div>
-  </div>
-</div>
+<div id="login" class="modal hide"><div class="box"><h2>الدخول إلى لوحة الإدارة</h2><div class="small" style="margin-bottom:8px">أدخل الرمز الخاص بك.</div><input id="pin" type="password" inputmode="numeric" placeholder="الرمز"><div class="actions"><button class="btn primary" onclick="doLogin()">دخول</button><button class="btn secondary" onclick="closeLogin()">إلغاء</button></div><div id="err" class="small" style="color:var(--danger);margin-top:7px"></div></div></div>
+<div id="toast" class="toast hide"></div>
 
 <script>
 var API='https://nnhfzrprwvlrjjwlharp.supabase.co/functions/v1/ai-dialogue-session';
-
 var GENERAL=[
-['ما هو الذكاء الاصطناعي؟','اشرح لي ببساطة شديدة، وكأنك تشرح لموظف لا يعرف شيئًا عن الذكاء الاصطناعي: ما هو الذكاء الاصطناعي؟ وما 5 أمثلة عملية يمكن أن يفيد بها موظفًا في عمله اليومي؟','الهدف: التعرف على الفكرة من خلال أمثلة قريبة من الحياة والعمل.'],
-['كيف نكتب سؤالًا أفضل؟','أريد أن أكتب رسالة لزملائي عن اجتماع غدًا الساعة 10 صباحًا. اكتبها بالعربية بأسلوب محترم وواضح، قصيرة، ومناسبة للإرسال على واتساب.','الهدف: ملاحظة أن تحديد المطلوب والأسلوب والطول يعطي نتيجة أفضل.'],
-['التلخيص','سأضع لك نصًا بعد قليل. لخصه في 5 نقاط فقط، ثم اكتب في النهاية: ما المطلوب مني تنفيذه؟ لا تضف أي معلومة غير موجودة في النص.\\n\\n[الصق نصًا غير حساس هنا]','الهدف: تجربة التلخيص واستخراج المطلوب.'],
-['تحسين النص','حسّن النص التالي لغويًا واجعله أوضح وأكثر مهنية، لكن لا تغيّر المعنى ولا تضف معلومات جديدة:\\n\\n[اكتب جملة أو رسالة من عندك]','الهدف: استخدام الذكاء الاصطناعي كمحرر للنص.'],
-['الخصوصية والتحقق','أعطني 3 نصائح لاستخدام الذكاء الاصطناعي بأمان في العمل، ثم أخبرني بوضوح: ما أنواع المعلومات التي يجب ألا أضعها فيه؟','الهدف: فهم أهمية التحقق وعدم إدخال البيانات الحساسة.']
+['ما هو الذكاء الاصطناعي؟','اشرح لي ببساطة شديدة، وكأنك تشرح لموظف لا يعرف شيئًا عن الذكاء الاصطناعي: ما هو الذكاء الاصطناعي؟ وما 5 أمثلة عملية يمكن أن يفيد بها موظفًا في عمله اليومي؟','<b>الهدف:</b> التعرف على الفكرة من خلال أمثلة قريبة من الحياة والعمل.'],
+['كيف نكتب سؤالًا أفضل؟','أريد أن أكتب رسالة لزملائي عن اجتماع غدًا الساعة 10 صباحًا. اكتبها بالعربية بأسلوب محترم وواضح، قصيرة، ومناسبة للإرسال على واتساب.','<b>الهدف:</b> ملاحظة أن تحديد المطلوب والأسلوب والطول يعطي نتيجة أفضل.'],
+['التلخيص','سأضع لك نصًا بعد قليل. لخصه في 5 نقاط فقط، ثم اكتب في النهاية: ما المطلوب مني تنفيذه؟ لا تضف أي معلومة غير موجودة في النص.\n\n[الصق نصًا غير حساس هنا]','<b>الهدف:</b> تجربة التلخيص واستخراج المطلوب.'],
+['تحسين النص','حسّن النص التالي لغويًا واجعله أوضح وأكثر مهنية، لكن لا تغيّر المعنى ولا تضف معلومات جديدة:\n\n[اكتب جملة أو رسالة من عندك]','<b>الهدف:</b> استخدام الذكاء الاصطناعي كمحرر للنص.'],
+['الخصوصية والتحقق','أعطني 3 نصائح لاستخدام الذكاء الاصطناعي بأمان في العمل، ثم أخبرني بوضوح: ما أنواع المعلومات التي يجب ألا أضعها فيه؟','<b>الهدف:</b> فهم أهمية التحقق وعدم إدخال البيانات الحساسة.']
 ];
-
 var SPECIAL={
 'مدير':[
-['تنظيم اجتماع','حوّل الملاحظات التالية إلى جدول بسيط يحتوي: القرار، المهمة، المسؤول، والموعد. لا تضف أي معلومات غير موجودة:\\n\\n[اكتب ملاحظات غير حساسة]','الهدف: تحويل ملاحظات الاجتماع إلى خطة عمل واضحة.'],
-['كتابة تعميم','اكتب تعميمًا إداريًا قصيرًا ومرتبًا للموظفين حول الموضوع التالي: [الموضوع]. اجعله رسميًا وواضحًا ولا يتجاوز 120 كلمة.','الهدف: إنشاء مسودة أولية بسرعة.'],
-['مقارنة خيارين','قارن بين الخيارين التاليين في جدول: [الخيار الأول] و[الخيار الثاني]. قارن من حيث الكلفة، الوقت، سهولة التطبيق، والمخاطر. إذا لم تتوفر معلومة فلا تخمن.','الهدف: تنظيم التفكير قبل اتخاذ القرار.']],
+['تنظيم اجتماع','حوّل الملاحظات التالية إلى جدول بسيط يحتوي: القرار، المهمة، المسؤول، والموعد. لا تضف أي معلومات غير موجودة:\n\n[اكتب ملاحظات غير حساسة]','<b>الهدف:</b> تحويل ملاحظات الاجتماع إلى خطة عمل واضحة.'],
+['كتابة تعميم','اكتب تعميمًا إداريًا قصيرًا ومرتبًا للموظفين حول الموضوع التالي: [الموضوع]. اجعله رسميًا وواضحًا ولا يتجاوز 120 كلمة.','<b>الهدف:</b> إنشاء مسودة أولية بسرعة.'],
+['مقارنة خيارين','قارن بين الخيارين التاليين في جدول: [الخيار الأول] و[الخيار الثاني]. قارن من حيث الكلفة، الوقت، سهولة التطبيق، والمخاطر. إذا لم تتوفر معلومة فلا تخمن.','<b>الهدف:</b> تنظيم التفكير قبل اتخاذ القرار.']],
 'باحث اجتماعي':[
-['تقرير زيارة','هذه ملاحظات زيارة اجتماعية بعد حذف الأسماء وأي بيانات شخصية: [الملاحظات]. رتبها في: الوضع العام، الملاحظات، الاحتياجات، والتوصيات. لا تستنتج أي معلومة غير مكتوبة.','الهدف: ترتيب الملاحظات وحماية خصوصية المستفيد.'],
-['أسئلة مقابلة','اقترح 10 أسئلة مفتوحة ومحايدة لمقابلة أسرة بهدف فهم احتياجاتها الاجتماعية، وتجنب الأسئلة التي توحي بإجابة معينة.','الهدف: تحسين التحضير للمقابلة.'],
-['تبسيط شرح','بسّط النص التالي بلغة عربية سهلة يفهمها شخص غير متخصص، مع الحفاظ على المعنى: [النص]','الهدف: جعل التعليمات أوضح للمستفيد.']],
+['تنظيم تقرير زيارة','هذه ملاحظات زيارة اجتماعية بعد حذف الأسماء وأي بيانات شخصية: [الملاحظات]. رتبها في: الوضع العام، الملاحظات، الاحتياجات، والتوصيات. لا تستنتج أي معلومة غير مكتوبة.','<b>الهدف:</b> ترتيب الملاحظات مع الحفاظ على الخصوصية.'],
+['أسئلة مقابلة','اقترح 10 أسئلة مفتوحة ومحايدة لمقابلة أسرة بهدف فهم احتياجاتها الاجتماعية، وتجنب الأسئلة التي توحي بإجابة معينة.','<b>الهدف:</b> تحسين التحضير للمقابلة.'],
+['تبسيط شرح','بسّط النص التالي بلغة عربية سهلة يفهمها شخص غير متخصص، مع الحفاظ على المعنى: [النص]','<b>الهدف:</b> جعل التعليمات أوضح للمستفيد.']],
 'سائق':[
-['فحص المركبة','أنشئ قائمة فحص سريعة من 10 نقاط لسائق مركبة مؤسسة قبل بدء يوم العمل، مرتبة من الأهم إلى الأقل أهمية.','الهدف: إنشاء قائمة فحص عملية قبل الانطلاق.'],
-['وصف عطل','رتب وصف العطل التالي ليكون واضحًا لفني الصيانة، بدون أن تخمن سبب العطل: [صف ما حدث للمركبة]','الهدف: إيصال المشكلة للفني بوضوح.'],
-['تنظيم المشاوير','لدي هذه المشاوير اليوم: [اكتب الأماكن]. ساعدني في وضع ترتيب منطقي لها لتقليل الرجوع، مع التنبيه أنني سأتحقق من الخرائط والازدحام قبل الانطلاق.','الهدف: التخطيط المبدئي للمشاوير.']],
+['فحص المركبة','أنشئ قائمة فحص سريعة من 10 نقاط لسائق مركبة مؤسسة قبل بدء يوم العمل، مرتبة من الأهم إلى الأقل أهمية.','<b>الهدف:</b> إنشاء قائمة فحص عملية قبل الانطلاق.'],
+['وصف عطل','رتب وصف العطل التالي ليكون واضحًا لفني الصيانة، بدون أن تخمن سبب العطل: [صف ما حدث للمركبة]','<b>الهدف:</b> إيصال المشكلة للفني بوضوح.'],
+['تنظيم المشاوير','لدي هذه المشاوير اليوم: [اكتب الأماكن]. ساعدني في وضع ترتيب منطقي لها لتقليل الرجوع، مع التنبيه أنني سأتحقق من الخرائط والازدحام قبل الانطلاق.','<b>الهدف:</b> التخطيط المبدئي للمشاوير.']],
 'مراسل':[
-['ترتيب المهام','رتب المهام التالية في قائمة تنفيذ واضحة، مع مربع اختيار أمام كل مهمة، ورتبها حسب الأولوية إذا كان ذلك ممكنًا: [المهام]','الهدف: تحويل المهام المتفرقة إلى قائمة واضحة.'],
-['سجل يومي','حوّل الملاحظات التالية إلى سجل يومي مختصر يحتوي: المهمة، الجهة، والحالة. لا تضف معلومات غير موجودة: [الملاحظات]','الهدف: توثيق المهام اليومية بسرعة.'],
-['تبسيط تعليمات','اشرح لي التعليمات التالية بلغة بسيطة وعلى شكل خطوات قصيرة مرقمة: [التعليمات]','الهدف: فهم المطلوب قبل التنفيذ.']],
+['ترتيب المهام','رتب المهام التالية في قائمة تنفيذ واضحة، مع مربع اختيار أمام كل مهمة، ورتبها حسب الأولوية إذا كان ذلك ممكنًا: [المهام]','<b>الهدف:</b> تحويل المهام المتفرقة إلى قائمة واضحة.'],
+['سجل يومي','حوّل الملاحظات التالية إلى سجل يومي مختصر يحتوي: المهمة، الجهة، والحالة. لا تضف معلومات غير موجودة: [الملاحظات]','<b>الهدف:</b> توثيق المهام اليومية بسرعة.'],
+['تبسيط تعليمات','اشرح لي التعليمات التالية بلغة بسيطة وعلى شكل خطوات قصيرة مرقمة: [التعليمات]','<b>الهدف:</b> فهم المطلوب قبل التنفيذ.']],
 'منسق العشوائيات':[
-['تصنيف الاحتياجات','هذه ملاحظات ميدانية بعد حذف الأسماء والبيانات الحساسة: [الملاحظات]. صنفها إلى: عاجل، متوسط، وغير عاجل، واذكر سبب التصنيف فقط من المعلومات المكتوبة.','الهدف: تنظيم الملاحظات حسب الأولوية.'],
-['نموذج متابعة','أنشئ نموذج متابعة بسيط للحالات يحتوي: رقم الحالة، تاريخ الزيارة، نوع الحاجة، الإجراء، حالة المتابعة، والملاحظات.','الهدف: بناء نموذج متابعة واضح.'],
-['الاحتياجات المتكررة','استخرج من القائمة التالية أكثر الاحتياجات تكرارًا، ورتبها من الأكثر إلى الأقل. لا تضف احتياجات غير مذكورة: [القائمة بعد حذف أي بيانات شخصية]','الهدف: اكتشاف الأنماط العامة في الملاحظات.']]
+['تصنيف الاحتياجات','هذه ملاحظات ميدانية بعد حذف الأسماء والبيانات الحساسة: [الملاحظات]. صنفها إلى: عاجل، متوسط، وغير عاجل، واذكر سبب التصنيف فقط من المعلومات المكتوبة.','<b>الهدف:</b> تنظيم الملاحظات حسب الأولوية.'],
+['نموذج متابعة','أنشئ نموذج متابعة بسيط للحالات يحتوي: رقم الحالة، تاريخ الزيارة، نوع الحاجة، الإجراء، حالة المتابعة، والملاحظات.','<b>الهدف:</b> بناء نموذج متابعة واضح.'],
+['الاحتياجات المتكررة','استخرج من القائمة التالية أكثر الاحتياجات تكرارًا، ورتبها من الأكثر إلى الأقل. لا تضف احتياجات غير مذكورة: [القائمة بعد حذف أي بيانات شخصية]','<b>الهدف:</b> اكتشاف الأنماط العامة في الملاحظات.']]
 };
-
-var ROLES=[['مدير','👔'],['باحث اجتماعي','🤝'],['سائق','🚗'],['مراسل','📬'],['منسق العشوائيات','🗂️']];
+var ROLE_INFO={
+'مدير':['👔','إدارة وتنظيم وقرارات'],
+'باحث اجتماعي':['🤝','تقارير ومقابلات ومتابعة'],
+'سائق':['🚗','مركبة ومشاوير وصيانة'],
+'مراسل':['📬','مهام وسجلات وتعليمات'],
+'منسق العشوائيات':['🗂️','تصنيف ومتابعة احتياجات']
+};
+var ROLES=Object.keys(ROLE_INFO);
 var state={screen:'waiting',generalIndex:0,specialIndex:0,updatedAt:null};
 var role=localStorage.getItem('ai_role')||'';
 var adminPin=sessionStorage.getItem('ai_pin')||'';
-
+var connected=false;
 function $(id){return document.getElementById(id)}
+function toast(t){$('toast').textContent=t;$('toast').classList.remove('hide');clearTimeout($('toast')._t);$('toast')._t=setTimeout(function(){$('toast').classList.add('hide')},1700)}
+function openAI(){window.open('https://chatgpt.com/','_blank','noopener')}
 function hideViews(){['v-wait','v-general','v-roles','v-special'].forEach(function(x){$(x).classList.add('hide')})}
-
 function renderRoles(){
-  $('roles').innerHTML=ROLES.map(function(x){var n=x[0],e=x[1];return '<button class="role '+(role===n?'on':'')+'" data-role="'+n+'"><span>'+e+'</span>'+n+'</button>'}).join('');
+  $('roles').innerHTML=ROLES.map(function(n){var info=ROLE_INFO[n];return '<button class="role '+(role===n?'on':'')+'" data-role="'+n+'"><div class="roleTop"><div><div class="roleName">'+n+'</div><div class="roleDesc">'+info[1]+'</div></div><div class="roleIcon">'+info[0]+'</div></div></button>'}).join('');
   Array.from($('roles').querySelectorAll('[data-role]')).forEach(function(b){b.onclick=function(){setRole(b.getAttribute('data-role'))}});
-  if(role){
-    $('chosen').classList.remove('hide');
-    $('chosen').innerHTML='تم اختيار: <b>'+role+'</b> <button id="changeRole" class="btn outline">تغيير</button>';
-    $('changeRole').onclick=function(){setRole('')};
-  }else $('chosen').classList.add('hide');
+  if(role){$('chosen').classList.remove('hide');$('chosen').innerHTML='<div><b>اختيارك: '+role+'</b><div class="small">يمكنك تغييره قبل بدء الأمثلة.</div></div><button id="changeRole" class="btn outline">تغيير</button>';$('changeRole').onclick=function(){setRole('')}}else{$('chosen').classList.add('hide')}
 }
-
-function setRole(n){
-  role=n;
-  if(n)localStorage.setItem('ai_role',n);else localStorage.removeItem('ai_role');
-  renderRoles();render();preview();
+function setRole(n){role=n;if(n)localStorage.setItem('ai_role',n);else localStorage.removeItem('ai_role');renderRoles();render();preview()}
+function syncProgress(){
+  var g=$('progGeneral'),w=$('progWork');g.className='pstep';w.className='pstep';
+  if(state.screen==='waiting'||state.screen==='general'){g.classList.add('on')}
+  if(state.screen==='roles'||state.screen==='special'){g.classList.add('done');w.classList.add('on')}
 }
-
 function render(){
-  hideViews();
-  if(state.screen==='waiting'){
-    $('v-wait').classList.remove('hide');
-    $('status').textContent='بانتظار الخطوة التالية';
-  }
-  if(state.screen==='general'){
-    var q=GENERAL[state.generalIndex]||GENERAL[0];
-    $('v-general').classList.remove('hide');
-    $('gt').textContent='سؤال '+(state.generalIndex+1)+': '+q[0];
-    $('gq').textContent=q[1];$('gg').textContent=q[2];
-    $('status').textContent='عام — سؤال '+(state.generalIndex+1);
-  }
-  if(state.screen==='roles'){
-    $('v-roles').classList.remove('hide');
-    $('status').textContent='اختر مجال العمل';
-    renderRoles();
-  }
-  if(state.screen==='special'){
-    $('v-special').classList.remove('hide');
-    $('status').textContent='مجال العمل — المثال '+(state.specialIndex+1);
-    if(!role||!SPECIAL[role]){
-      $('need').classList.remove('hide');$('sbox').classList.add('hide');
-    }else{
-      var s=SPECIAL[role][state.specialIndex]||SPECIAL[role][0];
-      $('need').classList.add('hide');$('sbox').classList.remove('hide');
-      $('st').textContent=role+' — '+s[0];$('sq').textContent=s[1];$('sg').textContent=s[2];
-    }
-  }
-  syncLive();preview();
+  hideViews();syncProgress();
+  if(state.screen==='waiting'){$('v-wait').classList.remove('hide');$('status').textContent='بانتظار الخطوة التالية'}
+  if(state.screen==='general'){var q=GENERAL[state.generalIndex]||GENERAL[0];$('v-general').classList.remove('hide');$('gt').textContent=q[0];$('gq').textContent=q[1];$('gg').innerHTML=q[2];$('gcount').textContent='سؤال '+(state.generalIndex+1)+' من '+GENERAL.length;$('status').textContent='عام — سؤال '+(state.generalIndex+1)}
+  if(state.screen==='roles'){$('v-roles').classList.remove('hide');$('status').textContent='اختر مجال العمل';renderRoles()}
+  if(state.screen==='special'){$('v-special').classList.remove('hide');$('status').textContent='مجال العمل — المثال '+(state.specialIndex+1);$('scount').textContent='مثال '+(state.specialIndex+1)+' من 3';if(!role||!SPECIAL[role]){$('need').classList.remove('hide');$('sbox').classList.add('hide')}else{var s=SPECIAL[role][state.specialIndex]||SPECIAL[role][0];$('need').classList.add('hide');$('sbox').classList.remove('hide');$('st').textContent=s[0];$('ssub').textContent='مخصص لمجال: '+role;$('sq').textContent=s[1];$('sg').innerHTML=s[2]}}
+  $('connDot').classList.toggle('on',connected);syncLive();preview()
 }
-
-function currentText(){
-  if(state.screen==='general')return (GENERAL[state.generalIndex]||GENERAL[0])[1];
-  if(state.screen==='special'&&role&&SPECIAL[role])return (SPECIAL[role][state.specialIndex]||SPECIAL[role][0])[1];
-  return '';
-}
-
-async function copyQuestion(){
-  var t=currentText();if(!t)return;
-  var ok=false;
-  try{
-    if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(t);ok=true}
-  }catch(e){}
-  if(!ok){
-    try{
-      var a=document.createElement('textarea');
-      a.value=t;a.setAttribute('readonly','');
-      a.style.position='fixed';a.style.opacity='0';
-      document.body.appendChild(a);a.focus();a.select();a.setSelectionRange(0,a.value.length);
-      ok=document.execCommand('copy');a.remove();
-    }catch(e){}
-  }
-  var el=state.screen==='general'?$('copy1'):$('copy2');
-  el.textContent=ok?'تم النسخ ✓':'اضغط مطولًا على النص للنسخ';
-  setTimeout(function(){el.textContent=''},1800);
-}
-
-function fillGeneral(){
-  $('gsel').innerHTML=GENERAL.map(function(q,i){return '<option value="'+i+'">'+(i+1)+'. '+q[0]+'</option>'}).join('');
-  previewG();
-}
-function previewG(){$('gprev').textContent=GENERAL[+$('gsel').value][1]}
-
-function adminMode(m){
-  $('ag').classList.toggle('hide',m!=='g');
-  $('aw').classList.toggle('hide',m!=='w');
-  $('tabg').classList.toggle('on',m==='g');
-  $('tabw').classList.toggle('on',m==='w');
-  $('admin').scrollTo({top:0,behavior:'smooth'});
-}
-
-function syncLive(){
-  var t='لا يوجد شيء ظاهر الآن',on=false;
-  if(state.screen==='general'){t='ظاهر الآن: عام — سؤال '+(state.generalIndex+1);on=true}
-  if(state.screen==='roles'){t='ظاهر الآن: مجالات العمل';on=true}
-  if(state.screen==='special'){t='ظاهر الآن: مجال العمل — المثال '+(state.specialIndex+1);on=true}
-  $('live').textContent=t;$('dot').classList.toggle('on',on);
-}
-
-function preview(){
-  var h='⏳ بانتظار الخطوة التالية';
-  if(state.screen==='general'){var q=GENERAL[state.generalIndex]||GENERAL[0];h='<b>عام — '+q[0]+'</b><br>'+q[1]}
-  if(state.screen==='roles')h='<b>اختر المجال الأقرب لعملك</b><br>'+ROLES.map(function(x){return x[1]+' '+x[0]}).join(' • ');
-  if(state.screen==='special')h='<b>كل شخص يرى المثال الخاص بالمجال الذي اختاره.</b>';
-  $('aprev').innerHTML=h;
-}
-
-async function update(next){
-  if(!adminPin){openLogin();return}
-  try{
-    var r=await fetch(API+'/state',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pin:adminPin,state:next})});
-    if(r.status===401){sessionStorage.removeItem('ai_pin');adminPin='';openLogin();return}
-    var d=await r.json();
-    if(d.ok){state=d.state;render()}
-  }catch(e){alert('تعذر الاتصال بالموقع')}
-}
+function currentText(){if(state.screen==='general')return (GENERAL[state.generalIndex]||GENERAL[0])[1];if(state.screen==='special'&&role&&SPECIAL[role])return (SPECIAL[role][state.specialIndex]||SPECIAL[role][0])[1];return''}
+async function copyQuestion(){var t=currentText();if(!t)return;try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(t)}else{throw new Error('fallback')}}catch(e){var a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.focus();a.select();a.setSelectionRange(0,a.value.length);document.execCommand('copy');a.remove()}var el=state.screen==='general'?$('copy1'):$('copy2');el.textContent='تم النسخ ✓';toast('تم نسخ السؤال');setTimeout(function(){el.textContent=''},1400)}
+function fillGeneral(){$('gsel').innerHTML=GENERAL.map(function(q,i){return '<option value="'+i+'">'+(i+1)+'. '+q[0]+'</option>'}).join('');previewG()}
+function previewG(){var q=GENERAL[+$('gsel').value]||GENERAL[0];$('gprev').textContent=q[1]}
+function prevGeneral(){var s=$('gsel');s.value=Math.max(0,+s.value-1);previewG()}
+function nextGeneral(){var s=$('gsel');s.value=Math.min(GENERAL.length-1,+s.value+1);previewG()}
+function previewSpecialAdmin(){var i=+$('ssel').value;$('sprev').innerHTML='<b>المثال '+(i+1)+'</b><br>عند عرضه، يرى كل موظف سؤالًا مختلفًا حسب المجال الذي اختاره.'}
+function prevSpecial(){var s=$('ssel');s.value=Math.max(0,+s.value-1);previewSpecialAdmin()}
+function nextSpecial(){var s=$('ssel');s.value=Math.min(2,+s.value+1);previewSpecialAdmin()}
+function adminMode(m){$('ag').classList.toggle('hide',m!=='g');$('aw').classList.toggle('hide',m!=='w');$('tabg').classList.toggle('on',m==='g');$('tabw').classList.toggle('on',m==='w')}
+function syncLive(){var t='لا يوجد شيء ظاهر الآن',on=false;if(state.screen==='general'){t='الحضور يرون الآن: عام — سؤال '+(state.generalIndex+1);on=true}if(state.screen==='roles'){t='الحضور يرون الآن: اختيار مجال العمل';on=true}if(state.screen==='special'){t='الحضور يرون الآن: مثال تخصصي رقم '+(state.specialIndex+1);on=true}$('live').textContent=t;$('dot').classList.toggle('on',on)}
+function preview(){var h='<div style="text-align:center;padding:12px"><div style="font-size:28px">⏳</div><div class="miniTitle">بانتظار الخطوة التالية</div></div>';if(state.screen==='general'){var q=GENERAL[state.generalIndex]||GENERAL[0];h='<span class="tag">عام</span><div class="miniTitle">'+q[0]+'</div><div class="miniText">'+q[1]+'</div>'}if(state.screen==='roles')h='<div class="miniTitle">اختر المجال الأقرب لعملك</div><div class="miniRoles">'+ROLES.map(function(n){return '<div class="miniRole">'+ROLE_INFO[n][0]+' '+n+'</div>'}).join('')+'</div>';if(state.screen==='special')h='<span class="tag">مجال العمل</span><div class="miniTitle">كل شخص يرى المثال الخاص بمجاله</div><div class="miniText">المثال رقم '+(state.specialIndex+1)+'</div>';$('aprev').innerHTML=h}
+async function update(next){if(!adminPin){openLogin();return}try{var r=await fetch(API+'/state',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pin:adminPin,state:next})});if(r.status===401){sessionStorage.removeItem('ai_pin');adminPin='';openLogin();return}var d=await r.json();if(d.ok){state=d.state;connected=true;render();toast('تم تحديث شاشة الحضور')}}catch(e){connected=false;render();alert('تعذر الاتصال بالموقع')}}
 function showGeneral(){update({screen:'general',generalIndex:+$('gsel').value,specialIndex:state.specialIndex})}
 function showRoles(){update({screen:'roles',generalIndex:state.generalIndex,specialIndex:state.specialIndex})}
 function showSpecial(){update({screen:'special',generalIndex:state.generalIndex,specialIndex:+$('ssel').value})}
 function hideAll(){update({screen:'waiting',generalIndex:state.generalIndex,specialIndex:state.specialIndex})}
-
-function openLogin(){
-  if(adminPin){showAdmin();return}
-  $('login').classList.remove('hide');$('pin').value='';$('err').textContent='';
-  setTimeout(function(){$('pin').focus()},50);
-}
+function openLogin(){if(adminPin){showAdmin();return}$('login').classList.remove('hide');$('pin').value='';$('err').textContent='';setTimeout(function(){$('pin').focus()},50)}
 function closeLogin(){$('login').classList.add('hide')}
-async function doLogin(){
-  try{
-    var v=$('pin').value;
-    var r=await fetch(API+'/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pin:v})});
-    if(r.ok){adminPin=v;sessionStorage.setItem('ai_pin',v);closeLogin();showAdmin()}
-    else $('err').textContent='الرمز غير صحيح';
-  }catch(e){$('err').textContent='تعذر الاتصال'}
-}
-function showAdmin(){
-  $('admin').classList.remove('hide');
-  document.body.style.overflow='hidden';
-  $('admin').scrollTop=0;
-  syncLive();preview();
-}
-function leaveAdmin(){
-  $('admin').classList.add('hide');
-  document.body.style.overflow='';
-  window.scrollTo(0,0);
-  render();
-}
-
-async function poll(){
-  try{
-    var r=await fetch(API+'/state',{cache:'no-store'});
-    var d=await r.json();
-    if(JSON.stringify(d)!==JSON.stringify(state)){state=d;render()}
-  }catch(e){}
-}
-
-fillGeneral();
-renderRoles();
-render();
-poll();
-setInterval(poll,1000);
+async function doLogin(){try{var v=$('pin').value;var r=await fetch(API+'/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pin:v})});if(r.ok){adminPin=v;sessionStorage.setItem('ai_pin',v);closeLogin();showAdmin();toast('تم الدخول إلى لوحة الإدارة')}else{$('err').textContent='الرمز غير صحيح'}}catch(e){$('err').textContent='تعذر الاتصال'}}
+function showAdmin(){$('participant').classList.add('hide');$('admin').classList.remove('hide');$('gsel').value=Math.min(state.generalIndex,GENERAL.length-1);$('ssel').value=Math.min(state.specialIndex,2);previewG();previewSpecialAdmin();syncLive();preview()}
+function leaveAdmin(){$('admin').classList.add('hide');$('participant').classList.remove('hide');render()}
+async function poll(){try{var r=await fetch(API+'/state',{cache:'no-store'});var d=await r.json();connected=true;if(JSON.stringify(d)!==JSON.stringify(state)){state=d;render()}else{$('connDot').classList.add('on')}}catch(e){connected=false;$('connDot').classList.remove('on')}}
+fillGeneral();previewSpecialAdmin();renderRoles();render();poll();setInterval(poll,1000);
 </script>
-</body>
-</html>
+</body></html>
