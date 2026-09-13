@@ -1,0 +1,66 @@
+name: Patch participant role switch
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/patch-role-switch.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.event.head_commit.message == 'Add one-time participant role switch patch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Patch index.html
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          s = s.replace('يمكنك تغييره قبل بدء الأمثلة.', 'يمكنك تغييره في أي وقت أثناء الأمثلة.')
+
+          old = '<div id="need" class="wait hide"><div class="waitIco">👤</div><h2>اختر مجال عملك أولًا</h2><p>ارجع إلى اختيار المجال ثم انتظر المثال.</p></div>'
+          new = '<div id="need" class="wait hide"><div class="waitIco">👤</div><h2>اختر مجال عملك أولًا</h2><p>اختر المجال الأقرب لعملك ليظهر لك المثال الحالي مباشرة.</p><button class="btn primary" onclick="openRoleSwitch()">اختيار مجال العمل</button></div>'
+          if old not in s:
+              raise SystemExit('need block not found')
+          s = s.replace(old, new, 1)
+
+          old = '<div class="actions"><button class="btn primary wide" onclick="copyQuestion()">📋 نسخ السؤال</button><button class="btn outline" onclick="openAI()">فتح ChatGPT ↗</button><span id="copy2" class="copyok"></span></div>'
+          new = '<div class="actions"><button class="btn primary wide" onclick="copyQuestion()">📋 نسخ السؤال</button><button class="btn outline" onclick="openAI()">فتح ChatGPT ↗</button><button class="btn outline" onclick="openRoleSwitch()">🔄 تغيير المجال</button><span id="copy2" class="copyok"></span></div>'
+          if old not in s:
+              raise SystemExit('special actions block not found')
+          s = s.replace(old, new, 1)
+
+          marker = '<div id="login" class="modal hide">'
+          modal = '<div id="roleSwitch" class="modal hide"><div class="box"><div class="row" style="align-items:flex-start"><div><h2>تغيير مجال العمل</h2><div class="small">اختر مجالًا جديدًا. سيظهر لك نفس المثال الحالي بما يناسب المجال الذي تختاره.</div></div><button class="back" onclick="closeRoleSwitch()" aria-label="إغلاق">×</button></div><div id="switchRoles" class="roles" style="margin-top:14px"></div></div></div>\n\n'
+          if marker not in s:
+              raise SystemExit('login marker not found')
+          s = s.replace(marker, modal + marker, 1)
+
+          needle = "function setRole(n){role=n;if(n)localStorage.setItem('ai_role',n);else localStorage.removeItem('ai_role');renderRoles();render();preview()}"
+          addition = needle + "\nfunction openRoleSwitch(){\n  var box=$('switchRoles');\n  box.innerHTML=ROLES.map(function(n){var info=ROLE_INFO[n];return '<button class=\"role '+(role===n?'on':'')+'\" data-switch-role=\"'+n+'\"><div class=\"roleTop\"><div><div class=\"roleName\">'+n+'</div><div class=\"roleDesc\">'+info[1]+'</div></div><div class=\"roleIcon\">'+info[0]+'</div></div></button>'}).join('');\n  Array.from(box.querySelectorAll('[data-switch-role]')).forEach(function(b){b.onclick=function(){setRole(b.getAttribute('data-switch-role'));closeRoleSwitch();toast('تم تغيير المجال إلى '+role)}});\n  $('roleSwitch').classList.remove('hide');\n}\nfunction closeRoleSwitch(){$('roleSwitch').classList.add('hide')}"
+          if needle not in s:
+              raise SystemExit('setRole function not found')
+          s = s.replace(needle, addition, 1)
+
+          old = "$('ssub').textContent='مخصص لمجال: '+role;"
+          new = "$('ssub').textContent='مخصص لمجال: '+role+' — ويمكنك تغيير المجال في أي وقت';"
+          if old not in s:
+              raise SystemExit('special subtitle not found')
+          s = s.replace(old, new, 1)
+
+          p.write_text(s, encoding='utf-8')
+      - name: Commit patch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Allow participants to change work field anytime"
+          git push origin main
