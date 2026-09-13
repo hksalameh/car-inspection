@@ -86,12 +86,12 @@ label{display:block;font-size:13px;font-weight:900;margin:12px 0 5px}.adminStep{
 
   <div id="v-special" class="hide">
     <span class="tag">🎯 مثال حسب التخصص</span><span id="scount" class="count"></span>
-    <div id="need" class="wait hide"><div class="waitIco">👤</div><h2>اختر مجال عملك أولًا</h2><p>ارجع إلى اختيار المجال ثم انتظر المثال.</p></div>
+    <div id="need" class="wait hide"><div class="waitIco">👤</div><h2>اختر مجال عملك أولًا</h2><p>اختر المجال الأقرب لعملك ليظهر لك المثال الحالي مباشرة.</p><button class="btn primary" onclick="openRoleSwitch()">اختيار مجال العمل</button></div>
     <div id="sbox" class="hide">
       <div class="qhead"><div id="st" class="qtitle"></div><div id="ssub" class="qsub"></div></div>
       <div class="prompt"><div id="sq" class="q"></div></div>
       <div id="sg" class="goal"></div>
-      <div class="actions"><button class="btn primary wide" onclick="copyQuestion()">📋 نسخ السؤال</button><button class="btn outline" onclick="openAI()">فتح ChatGPT ↗</button><span id="copy2" class="copyok"></span></div>
+      <div class="actions"><button class="btn primary wide" onclick="copyQuestion()">📋 نسخ السؤال</button><button class="btn outline" onclick="openAI()">فتح ChatGPT ↗</button><button class="btn outline" onclick="openRoleSwitch()">🔄 تغيير المجال</button><span id="copy2" class="copyok"></span></div>
       <div class="how"><div class="howItem"><span>①</span>انسخ</div><div class="howItem"><span>②</span>جرّب</div><div class="howItem"><span>③</span>هل النتيجة مفيدة لعملك؟</div></div>
     </div>
   </div>
@@ -125,6 +125,8 @@ label{display:block;font-size:13px;font-weight:900;margin:12px 0 5px}.adminStep{
   <section class="sec"><div class="card"><div class="qhead"><div class="qtitle">معاينة شاشة الحضور</div><div class="qsub">هذه معاينة سريعة لما يظهر عند الموظفين الآن.</div></div><div class="phoneFrame"><div class="phoneInner"><div class="phoneTop"><div class="phoneNotch"></div></div><div id="aprev" class="phone"></div></div></div></div></section>
 </main>
 </div>
+
+<div id="roleSwitch" class="modal hide"><div class="box"><div class="row" style="align-items:flex-start"><div><h2>تغيير مجال العمل</h2><div class="small">اختر مجالًا جديدًا. سيظهر لك نفس المثال الحالي بما يناسب المجال الذي تختاره.</div></div><button class="back" onclick="closeRoleSwitch()" aria-label="إغلاق">×</button></div><div id="switchRoles" class="roles" style="margin-top:14px"></div></div></div>
 
 <div id="login" class="modal hide"><div class="box"><h2>الدخول إلى لوحة الإدارة</h2><div class="small" style="margin-bottom:8px">أدخل الرمز الخاص بك.</div><input id="pin" type="password" inputmode="numeric" placeholder="الرمز"><div class="actions"><button class="btn primary" onclick="doLogin()">دخول</button><button class="btn secondary" onclick="closeLogin()">إلغاء</button></div><div id="err" class="small" style="color:var(--danger);margin-top:7px"></div></div></div>
 <div id="toast" class="toast hide"></div>
@@ -179,9 +181,16 @@ function hideViews(){['v-wait','v-general','v-roles','v-special'].forEach(functi
 function renderRoles(){
   $('roles').innerHTML=ROLES.map(function(n){var info=ROLE_INFO[n];return '<button class="role '+(role===n?'on':'')+'" data-role="'+n+'"><div class="roleTop"><div><div class="roleName">'+n+'</div><div class="roleDesc">'+info[1]+'</div></div><div class="roleIcon">'+info[0]+'</div></div></button>'}).join('');
   Array.from($('roles').querySelectorAll('[data-role]')).forEach(function(b){b.onclick=function(){setRole(b.getAttribute('data-role'))}});
-  if(role){$('chosen').classList.remove('hide');$('chosen').innerHTML='<div><b>اختيارك: '+role+'</b><div class="small">يمكنك تغييره قبل بدء الأمثلة.</div></div><button id="changeRole" class="btn outline">تغيير</button>';$('changeRole').onclick=function(){setRole('')}}else{$('chosen').classList.add('hide')}
+  if(role){$('chosen').classList.remove('hide');$('chosen').innerHTML='<div><b>اختيارك: '+role+'</b><div class="small">يمكنك تغييره في أي وقت أثناء الأمثلة.</div></div><button id="changeRole" class="btn outline">تغيير</button>';$('changeRole').onclick=function(){setRole('')}}else{$('chosen').classList.add('hide')}
 }
 function setRole(n){role=n;if(n)localStorage.setItem('ai_role',n);else localStorage.removeItem('ai_role');renderRoles();render();preview()}
+function openRoleSwitch(){
+  var box=$('switchRoles');
+  box.innerHTML=ROLES.map(function(n){var info=ROLE_INFO[n];return '<button class="role '+(role===n?'on':'')+'" data-switch-role="'+n+'"><div class="roleTop"><div><div class="roleName">'+n+'</div><div class="roleDesc">'+info[1]+'</div></div><div class="roleIcon">'+info[0]+'</div></div></button>'}).join('');
+  Array.from(box.querySelectorAll('[data-switch-role]')).forEach(function(b){b.onclick=function(){setRole(b.getAttribute('data-switch-role'));closeRoleSwitch();toast('تم تغيير المجال إلى '+role)}});
+  $('roleSwitch').classList.remove('hide');
+}
+function closeRoleSwitch(){$('roleSwitch').classList.add('hide')}
 function syncProgress(){
   var g=$('progGeneral'),w=$('progWork');g.className='pstep';w.className='pstep';
   if(state.screen==='waiting'||state.screen==='general'){g.classList.add('on')}
@@ -192,7 +201,7 @@ function render(){
   if(state.screen==='waiting'){$('v-wait').classList.remove('hide');$('status').textContent='بانتظار الخطوة التالية'}
   if(state.screen==='general'){var q=GENERAL[state.generalIndex]||GENERAL[0];$('v-general').classList.remove('hide');$('gt').textContent=q[0];$('gq').textContent=q[1];$('gg').innerHTML=q[2];$('gcount').textContent='سؤال '+(state.generalIndex+1)+' من '+GENERAL.length;$('status').textContent='عام — سؤال '+(state.generalIndex+1)}
   if(state.screen==='roles'){$('v-roles').classList.remove('hide');$('status').textContent='اختر مجال العمل';renderRoles()}
-  if(state.screen==='special'){$('v-special').classList.remove('hide');$('status').textContent='مجال العمل — المثال '+(state.specialIndex+1);$('scount').textContent='مثال '+(state.specialIndex+1)+' من 3';if(!role||!SPECIAL[role]){$('need').classList.remove('hide');$('sbox').classList.add('hide')}else{var s=SPECIAL[role][state.specialIndex]||SPECIAL[role][0];$('need').classList.add('hide');$('sbox').classList.remove('hide');$('st').textContent=s[0];$('ssub').textContent='مخصص لمجال: '+role;$('sq').textContent=s[1];$('sg').innerHTML=s[2]}}
+  if(state.screen==='special'){$('v-special').classList.remove('hide');$('status').textContent='مجال العمل — المثال '+(state.specialIndex+1);$('scount').textContent='مثال '+(state.specialIndex+1)+' من 3';if(!role||!SPECIAL[role]){$('need').classList.remove('hide');$('sbox').classList.add('hide')}else{var s=SPECIAL[role][state.specialIndex]||SPECIAL[role][0];$('need').classList.add('hide');$('sbox').classList.remove('hide');$('st').textContent=s[0];$('ssub').textContent='مخصص لمجال: '+role+' — ويمكنك تغيير المجال في أي وقت';$('sq').textContent=s[1];$('sg').innerHTML=s[2]}}
   $('connDot').classList.toggle('on',connected);syncLive();preview()
 }
 function currentText(){if(state.screen==='general')return (GENERAL[state.generalIndex]||GENERAL[0])[1];if(state.screen==='special'&&role&&SPECIAL[role])return (SPECIAL[role][state.specialIndex]||SPECIAL[role][0])[1];return''}
