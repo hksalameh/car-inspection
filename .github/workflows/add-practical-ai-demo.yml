@@ -1,4 +1,4 @@
-name: Add practical AI demo
+name: Fix smart prompt reveal
 on:
   push:
     paths:
@@ -10,16 +10,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Apply practical demo patch
-        run: python scripts/patch_practical_demo.py
-      - name: Commit changes
+      - name: Patch index
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace('<div id="lifeResult" class="lifeResult"></div>','<div id="lifeResult" class="lifeResult hide"></div>',1)
+          s=s.replace('<div class="actions"><button class="btn primary wide" onclick="copyLifePrompt()">📋 نسخ السؤال الناتج</button><button class="btn outline" onclick="openAI()">فتح ChatGPT ↗</button></div>','<div id="lifeResultActions" class="actions hide"><button class="btn primary wide" onclick="copyLifePrompt()">📋 نسخ السؤال الناتج</button><button class="btn outline" onclick="openAI()">فتح ChatGPT ↗</button></div>',1)
+          s=s.replace("  buildLifePrompt();\n}\nfunction lifePromptText()", "  resetLifePrompt();\n}\nfunction lifePromptText()",1)
+          s=s.replace("function buildLifePrompt(){var t=lifePromptText();$('lifeResult').textContent=t||'اكتب موقفًا بسيطًا من حياتك أولًا.'}", "function resetLifePrompt(){$('lifeResult').textContent='';$('lifeResult').classList.add('hide');$('lifeResultActions').classList.add('hide')}\nfunction buildLifePrompt(){var t=lifePromptText();if(!t){resetLifePrompt();toast('اكتب موقفًا بسيطًا أولًا');return}$('lifeResult').textContent=t;$('lifeResult').classList.remove('hide');$('lifeResultActions').classList.remove('hide')}",1)
+          s=s.replace("if(state.generalIndex===1)buildLifePrompt()", "if(state.generalIndex===1)resetLifePrompt()",1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit patch
+        shell: bash
         run: |
           if git diff --quiet index.html; then
-            echo "No changes needed"
+            echo 'No changes needed'
             exit 0
           fi
-          git config user.name "hksalameh"
-          git config user.email "hksalameh@gmail.com"
+          git config user.name 'hksalameh'
+          git config user.email 'hksalameh@gmail.com'
           git add index.html
-          git commit -m "Add practical AI life demo"
+          git commit -m 'Show smart prompt only after button press'
           git push
