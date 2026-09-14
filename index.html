@@ -99,8 +99,8 @@ label{display:block;font-size:13px;font-weight:900;margin:12px 0 5px}.adminStep{
       </div>
       <textarea id="lifeInput">غدًا عندي دوام من 8 إلى 3، موعد الساعة 4:30، شراء أغراض للبيت، دفع فاتورة، وأريد 30 دقيقة مشي.</textarea>
       <div class="actions"><button class="btn primary" onclick="buildLifePrompt()">✨ حوّله إلى سؤال ذكي</button></div>
-      <div id="lifeResult" class="lifeResult"></div>
-      <div class="actions"><button class="btn primary wide" onclick="copyLifePrompt()">📋 نسخ السؤال الناتج</button><button class="btn outline" onclick="openAI()">فتح ChatGPT ↗</button></div>
+      <div id="lifeResult" class="lifeResult hide"></div>
+      <div id="lifeResultActions" class="actions hide"><button class="btn primary wide" onclick="copyLifePrompt()">📋 نسخ السؤال الناتج</button><button class="btn outline" onclick="openAI()">فتح ChatGPT ↗</button></div>
       <div class="lifeWhy"><div>⏱️ يوفر وقتك</div><div>🧠 يرتب أفكارك</div><div>🔁 يعطيك بدائل بسرعة</div></div>
     </div>
   </div>
@@ -217,7 +217,7 @@ function setLifeMode(mode,btn){
   if(mode==='message')input.value='أريد أن أعتذر لصديق عن عدم قدرتي على حضور مناسبة اليوم بدون أن يكون الكلام رسميًا أو باردًا.';
   if(mode==='decision')input.value='أفكر هل أشتري هاتفًا جديدًا الآن أم أنتظر 3 أشهر. يهمني السعر والبطارية والكاميرا.';
   if(mode==='learn')input.value='أريد أن أفهم أساسيات الذكاء الاصطناعي بطريقة بسيطة خلال أسبوع، ووقتي المتاح 20 دقيقة يوميًا.';
-  buildLifePrompt();
+  resetLifePrompt();
 }
 function lifePromptText(){
   var x=($('lifeInput').value||'').trim();
@@ -227,7 +227,8 @@ function lifePromptText(){
   if(lifeMode==='decision')return 'ساعدني على التفكير في هذا القرار بدون أن تقرر بدلًا مني: '+x+' اعمل مقارنة بسيطة بين الخيارات، اذكر الإيجابيات والسلبيات، ثم اسألني 3 أسئلة مهمة تساعدني على اتخاذ القرار.';
   return 'أريد أن أتعلم هذا الموضوع: '+x+' اشرحه لي ببساطة، ثم ضع لي خطة قصيرة خطوة بخطوة، مع مثال عملي وتمرين صغير أتأكد به أنني فهمت.';
 }
-function buildLifePrompt(){var t=lifePromptText();$('lifeResult').textContent=t||'اكتب موقفًا بسيطًا من حياتك أولًا.'}
+function resetLifePrompt(){$('lifeResult').textContent='';$('lifeResult').classList.add('hide');$('lifeResultActions').classList.add('hide')}
+function buildLifePrompt(){var t=lifePromptText();if(!t){resetLifePrompt();toast('اكتب موقفًا بسيطًا أولًا');return}$('lifeResult').textContent=t;$('lifeResult').classList.remove('hide');$('lifeResultActions').classList.remove('hide')}
 async function copyLifePrompt(){
   var t=lifePromptText();
   if(!t){toast('اكتب مثالًا أولًا');return}
@@ -256,7 +257,7 @@ function syncProgress(){
 function render(){
   hideViews();syncProgress();
   if(state.screen==='waiting'){$('v-wait').classList.remove('hide');$('status').textContent='بانتظار الخطوة التالية'}
-  if(state.screen==='general'){var q=GENERAL[state.generalIndex]||GENERAL[0];$('v-general').classList.remove('hide');$('gt').textContent=q[0];$('gq').textContent=q[1];$('gg').innerHTML=q[2];$('gcount').textContent='سؤال '+(state.generalIndex+1)+' من '+GENERAL.length;$('status').textContent='عام — سؤال '+(state.generalIndex+1);$('lifeDemo').classList.toggle('hide',state.generalIndex!==1);if(state.generalIndex===1)buildLifePrompt()}
+  if(state.screen==='general'){var q=GENERAL[state.generalIndex]||GENERAL[0];$('v-general').classList.remove('hide');$('gt').textContent=q[0];$('gq').textContent=q[1];$('gg').innerHTML=q[2];$('gcount').textContent='سؤال '+(state.generalIndex+1)+' من '+GENERAL.length;$('status').textContent='عام — سؤال '+(state.generalIndex+1);$('lifeDemo').classList.toggle('hide',state.generalIndex!==1);if(state.generalIndex===1)resetLifePrompt()}
   if(state.screen==='roles'){$('v-roles').classList.remove('hide');$('status').textContent='اختر مجال العمل';renderRoles()}
   if(state.screen==='special'){$('v-special').classList.remove('hide');$('status').textContent='مجال العمل — المثال '+(state.specialIndex+1);$('scount').textContent='مثال '+(state.specialIndex+1)+' من 3';if(!role||!SPECIAL[role]){$('need').classList.remove('hide');$('sbox').classList.add('hide')}else{var s=SPECIAL[role][state.specialIndex]||SPECIAL[role][0];$('need').classList.add('hide');$('sbox').classList.remove('hide');$('st').textContent=s[0];$('ssub').textContent='مخصص لمجال: '+role+' — ويمكنك تغيير المجال في أي وقت';$('sq').textContent=s[1];$('sg').innerHTML=s[2]}}
   $('connDot').classList.toggle('on',connected);syncLive();preview()
