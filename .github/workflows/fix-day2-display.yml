@@ -1,0 +1,71 @@
+name: Fix day 2 activity display
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-day2-display.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Make every day 2 activity visibly actionable
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+
+          s=s.replace("var d2Case=-1;", "var d2Case=0;", 1)
+
+          old="""function chooseD2Case(i){d2Case=i;renderDay2(DAY2.length-2)}"""
+          new="""function chooseD2Case(i){d2Case=i;renderDay2(DAY2.length-2)}
+function setDay2Role(n){role=n;localStorage.setItem('ai_role',n);renderRoles();var ti=DAY2.findIndex(function(x){return x.kind==='tool'});renderDay2(ti<0?3:ti);toast('تم اختيار المجال: '+n)}"""
+          if old in s and 'function setDay2Role' not in s:
+              s=s.replace(old,new,1)
+
+          old_tool="""  }else if(x.kind==='tool'){
+    if(!role||!DAY2_TOOLS[role]){body='<div class=\"wait\"><div class=\"waitIco\">👤</div><h2>اختر مجال عملك أولًا</h2><p>سنجهز لك سؤالًا يناسب طبيعة عملك.</p><button class=\"btn primary\" onclick=\"openRoleSwitch()\">اختيار مجال العمل</button></div>'}
+    else{body='<div class=\"chosen\"><div><b>مجالك الحالي: '+role+'</b><div class=\"small\">يمكنك تغييره متى أردت.</div></div><button class=\"btn outline\" onclick=\"openRoleSwitch()\">تغيير</button></div>'+day2PromptCard('أداة تناسب عملك',DAY2_TOOLS[role],'نسخ الطلب')}
+"""
+          new_tool="""  }else if(x.kind==='tool'){
+    if(!role||!DAY2_TOOLS[role]){
+      body='<div class=\"d2Hint\"><b>اختر مجال عملك بكبسة واحدة</b><br>بعد الاختيار سيظهر السؤال الجاهز فورًا.</div><div class=\"d2ChoiceGrid\">'+ROLES.map(function(n){return '<button class=\"d2Choice\" onclick=\"setDay2Role(\\\''+n+'\\\')\">'+ROLE_INFO[n][0]+' '+n+'</button>'}).join('')+'</div>'
+    }else{
+      body='<div class=\"chosen\"><div><b>مجالك الحالي: '+role+'</b><div class=\"small\">السؤال الجاهز ظاهر بالأسفل.</div></div><button class=\"btn outline\" onclick=\"openRoleSwitch()\">تغيير</button></div>'+day2PromptCard('أداة تناسب عملك',DAY2_TOOLS[role],'نسخ الطلب')
+    }
+"""
+          if old_tool in s:
+              s=s.replace(old_tool,new_tool,1)
+
+          old_end="""  }
+  $('d2body').innerHTML=body;
+}"""
+          new_end="""  }
+  if(!body){body='<div class=\"d2Hint\"><b>هذه الفقرة جاهزة للنقاش.</b><br>إذا لم يظهر السؤال المطلوب، حدّث الصفحة مرة واحدة.</div>'}
+  $('d2body').innerHTML=body;
+}"""
+          if old_end in s:
+              s=s.replace(old_end,new_end,1)
+
+          old_update="""async function update(next){if(!adminPin){openLogin();return}try{var r=await fetch(API+'/state',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pin:adminPin,state:next})});if(r.status===401){sessionStorage.removeItem('ai_pin');adminPin='';openLogin();return}var d=await r.json();if(d.ok){state=d.state;connected=true;render();toast('تم تحديث شاشة الحضور')}}catch(e){connected=false;render();alert('تعذر الاتصال بالموقع')}}"""
+          new_update="""async function update(next){if(!adminPin){openLogin();return}try{var r=await fetch(API+'/state',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pin:adminPin,state:next})});if(r.status===401){sessionStorage.removeItem('ai_pin');adminPin='';openLogin();return}var d=await r.json();if(d.ok){state=d.state;connected=true;render();toast('تم العرض عند الحضور ✓')}else{toast('لم يتم العرض — حاول مرة أخرى')}}catch(e){connected=false;render();alert('تعذر الاتصال بالموقع')}}"""
+          if old_update in s:
+              s=s.replace(old_update,new_update,1)
+
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit display fixes
+        shell: bash
+        run: |
+          if git diff --quiet index.html; then
+            echo 'No changes needed'
+            exit 0
+          fi
+          git config user.name 'hksalameh'
+          git config user.email 'hksalameh@gmail.com'
+          git add index.html
+          git commit -m 'Ensure every second-session activity shows clearly'
+          git push
