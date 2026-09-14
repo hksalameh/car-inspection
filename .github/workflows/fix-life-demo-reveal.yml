@@ -1,0 +1,67 @@
+name: Fix practical demo reveal
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-life-demo-reveal.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch practical demo reveal behavior
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+
+          s=s.replace('<div id="lifeResult" class="lifeResult"></div>', '<div id="lifeResult" class="lifeResult hide"></div>', 1)
+          s=s.replace('<div class="actions"><button class="btn primary wide" onclick="copyLifePrompt()">📋 نسخ السؤال الناتج</button><button class="btn outline" onclick="openAI()">فتح ChatGPT ↗</button></div>', '<div id="lifeResultActions" class="actions hide"><button class="btn primary wide" onclick="copyLifePrompt()">📋 نسخ السؤال الناتج</button><button class="btn outline" onclick="openAI()">فتح ChatGPT ↗</button></div>', 1)
+
+          old="""function setLifeMode(mode,btn){
+  lifeMode=mode;
+  Array.from(document.querySelectorAll('.lifeMode')).forEach(function(b){b.classList.remove('on')});
+  if(btn)btn.classList.add('on');
+  var input=$('lifeInput');
+  if(mode==='day')input.value='غدًا عندي دوام من 8 إلى 3، موعد الساعة 4:30، شراء أغراض للبيت، دفع فاتورة، وأريد 30 دقيقة مشي.';
+  if(mode==='message')input.value='أريد أن أعتذر لصديق عن عدم قدرتي على حضور مناسبة اليوم بدون أن يكون الكلام رسميًا أو باردًا.';
+  if(mode==='decision')input.value='أفكر هل أشتري هاتفًا جديدًا الآن أم أنتظر 3 أشهر. يهمني السعر والبطارية والكاميرا.';
+  if(mode==='learn')input.value='أريد أن أفهم أساسيات الذكاء الاصطناعي بطريقة بسيطة خلال أسبوع، ووقتي المتاح 20 دقيقة يوميًا.';
+  buildLifePrompt();
+}"""
+          new="""function setLifeMode(mode,btn){
+  lifeMode=mode;
+  Array.from(document.querySelectorAll('.lifeMode')).forEach(function(b){b.classList.remove('on')});
+  if(btn)btn.classList.add('on');
+  var input=$('lifeInput');
+  if(mode==='day')input.value='غدًا عندي دوام من 8 إلى 3، موعد الساعة 4:30، شراء أغراض للبيت، دفع فاتورة، وأريد 30 دقيقة مشي.';
+  if(mode==='message')input.value='أريد أن أعتذر لصديق عن عدم قدرتي على حضور مناسبة اليوم بدون أن يكون الكلام رسميًا أو باردًا.';
+  if(mode==='decision')input.value='أفكر هل أشتري هاتفًا جديدًا الآن أم أنتظر 3 أشهر. يهمني السعر والبطارية والكاميرا.';
+  if(mode==='learn')input.value='أريد أن أفهم أساسيات الذكاء الاصطناعي بطريقة بسيطة خلال أسبوع، ووقتي المتاح 20 دقيقة يوميًا.';
+  resetLifePrompt();
+}"""
+          s=s.replace(old,new,1)
+
+          old2="function buildLifePrompt(){var t=lifePromptText();$('lifeResult').textContent=t||'اكتب موقفًا بسيطًا من حياتك أولًا.'}"
+          new2="function resetLifePrompt(){$('lifeResult').textContent='';$('lifeResult').classList.add('hide');$('lifeResultActions').classList.add('hide')}\nfunction buildLifePrompt(){var t=lifePromptText();if(!t){resetLifePrompt();toast('اكتب موقفًا بسيطًا أولًا');return}$('lifeResult').textContent=t;$('lifeResult').classList.remove('hide');$('lifeResultActions').classList.remove('hide')}"
+          s=s.replace(old2,new2,1)
+
+          s=s.replace("if(state.generalIndex===1)buildLifePrompt()", "if(state.generalIndex===1)resetLifePrompt()", 1)
+
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit fix
+        shell: bash
+        run: |
+          if git diff --quiet index.html; then
+            echo 'No changes needed'
+            exit 0
+          fi
+          git config user.name 'hksalameh'
+          git config user.email 'hksalameh@gmail.com'
+          git add index.html
+          git commit -m 'Hide generated smart prompt until requested'
+          git push
